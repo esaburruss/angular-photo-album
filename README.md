@@ -1,5 +1,18 @@
 # AngularPhotoAlbum
 
+Assignment:
+
+Create an angular application for managing photo albums. The data model for these should follow the data formats returned by the /users, /photos, and /albums APIs located at http://jsonplaceholder.typicode.com. The application can be seeded with initial data using those same APIs.
+
+Data should be loaded from the jsonplaceholder website.
+App must display a list of users.
+Clicking on a user should display the list of albums for that user.
+The list of albums should show a thumbnail of the album, which is just the first photo’s thumbnail.
+Clicking on an album should show the entire list of photos in the album, using each photo’s thumbnail.
+Clicking on a photo should show the full size photo with the photo’s title as a caption.
+The app should allow for the standard CRUD operations on the albums, photos, and users
+The app should implement paging for the list of albums or photos (synchronous or asynchronous)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
 ## Development server
