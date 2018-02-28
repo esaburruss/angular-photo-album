@@ -8,27 +8,28 @@ import { Photo } from '../../models/photo.model';
 import { Album } from '../../models/album.model';
 
 @Component({
-  templateUrl: 'photos.component.html'
+  templateUrl: 'photo.component.html'
 })
-export class PhotosComponent implements OnInit {
-  private album: Album;
+export class PhotoComponent implements OnInit {
   private user: number;
-  private photos: Photo[];
+  private album: number;
+  private photo: Photo;
   private _ready: boolean;
   constructor(
     private apiService: ApiService,
     private router: Router,
     private route:ActivatedRoute,
   ) {
-    this.album = new Album({});
+    this.album = 0;
     this.user = 0;
+    this.photo = new Photo({});
     this._ready = false;
 
     this._ready = this.apiService.isLoaded();
 
     apiService.loaded$.subscribe(_ready => {
       this._ready = _ready;
-      this.loadPhotosForAlbum();
+      this.loadPhoto();
     });
   }
 
@@ -36,21 +37,22 @@ export class PhotosComponent implements OnInit {
     this.album = this.route.snapshot.params['albumId'];
     this.user = this.route.snapshot.params['userId'];
     if(this._ready) {
-      this.loadPhotosForAlbum();
+      this.loadPhoto();
     }
   }
 
-  loadPhotosForAlbum() {
-    this.apiService.getAlbum(this.user, this.route.snapshot.params['albumId']).then(album=> {
-      this.album=album;
-      this.apiService.getPhotos(this.user, this.route.snapshot.params['albumId']).then(photos => {
-        //this.photos = photos;
-        this.loadPagedPhotos([1, 4]);
+  loadPhoto() {
+    this.apiService.getAlbum(this.user, this.album).then(album=> {
+      this.apiService.getPhotos(this.user, this.album).then(photos => {
+        this.apiService.getPhoto(this.user, this.album, this.route.snapshot.params['photoId'])
+          .then(photo => {
+            this.photo = photo;
+          });
       });
     });
-  }
-
-  loadPagedPhotos(page: any) {
-    this.photos = this.apiService.getPagedPhotos(this.user, this.album.id, page[0], page[1]);
+    /*this.apiService.getPhoto(this.user, this.album, this.route.snapshot.params['photoId'])
+      .then(photo => {
+        this.photo = photo;
+      });*/
   }
 }

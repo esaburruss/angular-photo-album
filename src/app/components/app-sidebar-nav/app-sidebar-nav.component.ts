@@ -54,7 +54,6 @@ export class AppSidebarNavComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.navigation);
   }
 }
 

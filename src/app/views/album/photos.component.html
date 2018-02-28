@@ -1,14 +1,20 @@
 <div class="card animated fadeIn">
   <div class="card-body">
-    <button type="button" class="btn btn-secondary" routerLink="/user/{{user}}/album">
-      <i class="icon-arrow-left-circle"></i> Back
-    </button>
-    <app-pager></app-pager>
+    <div class="row">
+      <div class="col-md-2">
+        <button type="button" class="btn btn-secondary" routerLink="/user/{{user}}/album">
+          <i class="icon-arrow-left-circle"></i> Back
+        </button>
+      </div>
+      <div class="col-md-10">
+        <app-pager (setPage)="loadPagedPhotos($event)"></app-pager>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row animated fadeIn">
   <div *ngFor="let photo of photos" class="col-3">
-    <div class="card">
+    <div class="card" routerLink="{{ photo.id }}">
       <div class="card-header text-truncate">
         {{photo.title}}
       </div>

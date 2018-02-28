@@ -19,6 +19,10 @@ export class ApiService {
   loaded$ = this._loadedSource.asObservable();
   private _loaded: boolean;
 
+  private _pagerSource = new Subject<Pager>();
+  pager$ = this._pagerSource.asObservable();
+  private _pager: Pager;
+
   constructor(private http: HttpClient) {
     this._users = new Map();
   }
@@ -122,19 +126,38 @@ export class ApiService {
     }
   }
 
-  getPagedPhotos(user: number, album: number, currentPage: number = 1, pageSize: number = 10): any{
+  getPagedPhotos(user: number, album: number, currentPage: number = 1, pageSize: number = 10): any {
+
     if(
       this._users &&
       this._users.has(+user) &&
-      this._users.get(+user).album === true &&
+      //this._users.get(+user).album === true &&
       this._users.get(+user).albums &&
       this._users.get(+user).albums.has(+album) &&
       this._users.get(+user).albums.get(+album).photos
     ) {
       let photos = Array.from(this._users.get(+user).albums.get(+album).photos.values());
-      return { pager: this._paged(photos.length, currentPage, pageSize), photos: photos};
+      this._pager = this._paged(photos.length, currentPage, pageSize);
+      this._pagerSource.next(this._pager);
+      return photos.slice(this._pager.startIndex, this._pager.endIndex + 1);
     } else {
-      //console.log("unimplemented");
+      
+    }
+  }
+
+  getPhoto(user: number, album: number, photo: number): Promise<Photo> {
+    if(
+      this._users &&
+      this._users.has(+user) &&
+      //this._users.get(+user).album === true &&
+      this._users.get(+user).albums &&
+      this._users.get(+user).albums.has(+album) &&
+      this._users.get(+user).albums.get(+album).photos &&
+      this._users.get(+user).albums.get(+album).photos.has(+photo)
+    ) {
+      return Promise.resolve(this._users.get(+user).albums.get(+album).photos.get(+photo))
+    } else {
+      return
     }
   }
 

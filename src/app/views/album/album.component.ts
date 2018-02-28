@@ -50,6 +50,5 @@ export class AlbumComponent implements OnInit {
   }
 
   albumClick(event: any) {
-    console.log(event)
   }
 }

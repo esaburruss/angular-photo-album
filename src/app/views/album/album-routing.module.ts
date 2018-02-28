@@ -4,6 +4,7 @@ import { Routes,
 
 import { AlbumComponent } from './album.component';
 import { PhotosComponent } from './photos.component';
+import { PhotoComponent } from './photo.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,13 @@ const routes: Routes = [
     component: PhotosComponent,
     data: {
       title: 'Photos'
+    }
+  },
+  {
+    path: ':userId/album/:albumId/photos/:photoId',
+    component: PhotoComponent,
+    data: {
+      title: 'Photo'
     }
   }
 ];

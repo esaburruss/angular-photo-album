@@ -5,6 +5,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { AlbumComponent } from './album.component';
 import { PhotosComponent } from './photos.component';
+import { PhotoComponent } from './photo.component';
 import { AlbumRoutingModule } from './album-routing.module';
 import { AppPagerComponent } from '../../components';
 
@@ -18,6 +19,7 @@ import { AppPagerComponent } from '../../components';
   declarations: [
     AlbumComponent,
     PhotosComponent,
+    PhotoComponent,
     AppPagerComponent,
   ]
 })
