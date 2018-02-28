@@ -1,0 +1,23 @@
+<div class="card animated fadeIn">
+  <div class="card-body">
+    <button type="button" class="btn btn-secondary" routerLink="/user/{{user}}/album">
+      <i class="icon-arrow-left-circle"></i> Back
+    </button>
+  </div>
+</div>
+<div class="row animated fadeIn">
+  <div *ngFor="let photo of photos" class="col-3">
+    <div class="card">
+      <div class="card-header text-truncate">
+        {{photo.title}}
+      </div>
+      <div class="card-body">
+        <img class="card-img-top" src="{{photo.thumbnailUrl}}" onerror="this.onerror=null;this.src='./assets/missing.png';" style="min-height:100px;">
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let photo of photos" class="card col-3 m-4 px-0">
+    <img class="card-img-top" src="{{photo.thumbnailUrl}}" onerror="this.onerror=null;this.src='./assets/missing.png';" style="min-height:100px;">
+    <p class="card-text text-truncate px-1">{{photo.title}}</p>
+  </div>
+</div>

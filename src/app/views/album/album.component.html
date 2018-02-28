@@ -1,0 +1,12 @@
+<div class="row animated fadeIn">
+  <div *ngFor="let album of albums" class="col-3">
+    <div class="card" routerLink="{{ album.id }}/photos">
+      <div class="card-header text-truncate">
+        {{album.title}}
+      </div>
+      <div class="card-body">
+        <img class="card-img-top" src="{{album.thumbnailUrl}}" onerror="this.onerror=null;this.src='./assets/missing.png';" style="min-height:100px;">
+      </div>
+    </div>
+  </div>
+</div>
