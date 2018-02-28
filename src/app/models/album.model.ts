@@ -6,7 +6,7 @@ export class Album {
   title: string;
   thumbnailUrl: string;
   photo: boolean;
-  photos: Photo[];
+  photos: Map<number,Photo>;
 
   constructor(obj?: any) {
     this.id            = obj && obj.id               || null;
@@ -14,6 +14,6 @@ export class Album {
     this.title         = obj && obj.title            || null;
     this.thumbnailUrl  = obj && obj.thumbnailUrl     || '';
     this.photo = false;
-    this.photos = [new Photo({})];
+    this.photos = obj && obj.photos           || new Map<number,Photo>();
   }
 }

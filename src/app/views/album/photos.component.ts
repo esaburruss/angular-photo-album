@@ -5,33 +5,47 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { User } from '../../models/user.model';
 import { Photo } from '../../models/photo.model';
+import { Album } from '../../models/album.model';
 
 @Component({
   templateUrl: 'photos.component.html'
 })
 export class PhotosComponent implements OnInit {
-  private album: number;
+  private album: Album;
   private user: number;
   private photos: Photo[];
+  private _ready: boolean;
   constructor(
     private apiService: ApiService,
     private router: Router,
     private route:ActivatedRoute,
   ) {
-    this.album = 0;
+    this.album = new Album({});
     this.user = 0;
+    this._ready = false;
+
+    this._ready = this.apiService.isLoaded();
+
+    apiService.loaded$.subscribe(_ready => {
+      this._ready = _ready;
+      this.loadPhotosForAlbum();
+    });
   }
 
   ngOnInit() {
     this.album = this.route.snapshot.params['albumId'];
     this.user = this.route.snapshot.params['userId'];
-    this.loadPhotosForAlbum(this.album);
+    if(this._ready) {
+      this.loadPhotosForAlbum();
+    }
   }
 
-  loadPhotosForAlbum(album: number) {
-    this.apiService.getPhotos(album).then(photos => {
-      this.photos = photos;
-      //album.thumbnailUrl = album.photos[0].thumbnailUrl;
+  loadPhotosForAlbum() {
+    this.apiService.getAlbum(this.user, this.route.snapshot.params['albumId']).then(album=> {
+      this.album=album;
+      this.apiService.getPhotos(this.user, this.route.snapshot.params['albumId']).then(photos => {
+        this.photos = photos;
+      });
     });
   }
 

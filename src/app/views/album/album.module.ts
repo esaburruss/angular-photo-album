@@ -6,6 +6,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AlbumComponent } from './album.component';
 import { PhotosComponent } from './photos.component';
 import { AlbumRoutingModule } from './album-routing.module';
+import { AppPagerComponent } from '../../components';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { AlbumRoutingModule } from './album-routing.module';
   ],
   declarations: [
     AlbumComponent,
-    PhotosComponent
+    PhotosComponent,
+    AppPagerComponent,
   ]
 })
 export class AlbumModule { }

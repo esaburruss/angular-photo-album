@@ -12,22 +12,31 @@ import { Album } from '../../models/album.model';
 export class AlbumComponent implements OnInit {
   private user: number;
   private albums: Album[];
+  private _ready: boolean;
   constructor(
     private apiService: ApiService,
     private router: Router,
     private route:ActivatedRoute,
   ) {
+    this._ready = this.apiService.isLoaded();
+    this.apiService.loaded$.subscribe(_ready => {
+      this._ready = _ready;
+      this.user = this.route.snapshot.params['userId'];
+      this.loadAlbumsForUser(this.user);
+    });
     router.events.subscribe((val) => {
       if(val instanceof NavigationEnd) {
         this.user = this.route.snapshot.params['userId'];
-        this.loadAlbumsForUser(this.user);
+        if(this._ready) {
+          this.loadAlbumsForUser(this.user);
+        }
       }
     });
   }
 
   ngOnInit() {
     this.user = this.route.snapshot.params['userId'];
-    this.loadAlbumsForUser(this.user);
+
   }
 
   loadAlbumsForUser(user: number) {
@@ -41,6 +50,6 @@ export class AlbumComponent implements OnInit {
   }
 
   albumClick(event: any) {
-    console.log(event);
+    console.log(event)
   }
 }

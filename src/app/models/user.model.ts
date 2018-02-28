@@ -12,7 +12,7 @@ export class User {
   username: string;
   website: string;
   album: boolean;
-  albums: Album[];
+  albums: Map<number,Album>;
 
   constructor(obj?: any) {
     this.address       = obj && obj.address          || new Address({});
@@ -23,7 +23,7 @@ export class User {
     this.phone         = obj && obj.phone            || null;
     this.username      = obj && obj.username         || null;
     this.website       = obj && obj.website          || null;
-    this.albums = [new Album({})];
-    this.album = false;
+    this.albums        = obj && obj.albums           || new Map<number,Album>();
+    this.album         = false;
   }
 }

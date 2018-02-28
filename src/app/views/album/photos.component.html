@@ -3,6 +3,7 @@
     <button type="button" class="btn btn-secondary" routerLink="/user/{{user}}/album">
       <i class="icon-arrow-left-circle"></i> Back
     </button>
+    <app-pager></app-pager>
   </div>
 </div>
 <div class="row animated fadeIn">
@@ -15,9 +16,5 @@
         <img class="card-img-top" src="{{photo.thumbnailUrl}}" onerror="this.onerror=null;this.src='./assets/missing.png';" style="min-height:100px;">
       </div>
     </div>
-  </div>
-  <div *ngFor="let photo of photos" class="card col-3 m-4 px-0">
-    <img class="card-img-top" src="{{photo.thumbnailUrl}}" onerror="this.onerror=null;this.src='./assets/missing.png';" style="min-height:100px;">
-    <p class="card-text text-truncate px-1">{{photo.title}}</p>
   </div>
 </div>
